@@ -9,8 +9,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EShop.DataLayer.Context;
+using EShop.IocConfig;
+using EShop.Services.Contracts;
+using EShop.Services.EFServices;
 using EShop.ViewModels.App;
 using Microsoft.EntityFrameworkCore;
+
 
 namespace EShop.Web
 {
@@ -31,7 +35,10 @@ namespace EShop.Web
                 options.UseSqlServer(Configuration.GetConnectionString("ApplicationDbContextConnection"));
             });
            // services.Configure<ConnectionStringsModel>(Configuration.GetSection(nameof(ConnectionStringsModel)));
-            services.AddControllersWithViews();
+           services.AddCustomServices();
+           services.AddControllersWithViews();
+           services.AddScoped<IProductServices, ProductServices>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

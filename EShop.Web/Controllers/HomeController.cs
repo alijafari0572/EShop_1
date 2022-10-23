@@ -6,16 +6,20 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using EShop.Services.Contracts;
+
 
 namespace EShop.Web.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IProductServices _productServices;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IProductServices productServices)
         {
             _logger = logger;
+            _productServices = productServices;
         }
 
         public IActionResult Index()
@@ -24,6 +28,11 @@ namespace EShop.Web.Controllers
         }
 
         public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        public IActionResult AddProduct()
         {
             return View();
         }

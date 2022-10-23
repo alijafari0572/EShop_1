@@ -1,9 +1,12 @@
 ﻿using System;
 using EShop.DataLayer.Context;
+using EShop.Services.Contracts;
+using EShop.Services.EFServices;
 using EShop.ViewModels.App;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+
 
 namespace EShop.IocConfig
 {
@@ -17,6 +20,7 @@ namespace EShop.IocConfig
             //{
             //    options.UseSqlServer(connectionStrings.EShopDbContextConnection);
             //});
+            //services.AddScoped<IProductServices,ProductServices>();
             return services;
 
         }

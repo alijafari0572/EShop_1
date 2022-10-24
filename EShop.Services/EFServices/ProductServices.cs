@@ -12,23 +12,23 @@ namespace EShop.Services.EFServices
 {
     public class ProductServices:IProductServices
     {
-        private readonly EShopDbContext _context;
-        //private readonly DbSet<Product> _products;
-
-        public ProductServices(EShopDbContext context)
+        private readonly DbSet<Product> _products;
+        private readonly IUnitOfWork _uow;
+        public ProductServices(IUnitOfWork uow)
         {
-            _context = context;
-            //_products = _context.Set<Product>();
+            _uow = uow;
+            _products = _uow.Set<Product>();
         }
 
         public void Add(Product product)
         {
-           _context.Products.Add(product);
+            //_context.Products.Add(product);
+            _products.Add(product);
         }
 
         public List<Product> GetList()
         {
-            return _context.Products.ToList();
+            return _products.ToList();
         }
     }
 }

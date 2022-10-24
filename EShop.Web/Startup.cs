@@ -37,7 +37,7 @@ namespace EShop.Web
            // services.Configure<ConnectionStringsModel>(Configuration.GetSection(nameof(ConnectionStringsModel)));
            services.AddCustomServices();
            services.AddControllersWithViews();
-           services.AddScoped<IProductServices, ProductServices>();
+           //services.AddScoped<IProductServices, ProductServices>();
 
         }
 

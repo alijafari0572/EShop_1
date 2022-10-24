@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EShop.DataLayer.Context
 {
-    public class EShopDbContext:DbContext
+    public class EShopDbContext:DbContext,IUnitOfWork
     {
         public EShopDbContext(DbContextOptions options)
             : base(options)
@@ -17,5 +17,9 @@ namespace EShop.DataLayer.Context
         }
 
         public DbSet<Product> Products { get; set; }
+        public Task<int> SaveChangesAsync()
+        {
+            return base.SaveChangesAsync();
+        }
     }
 }

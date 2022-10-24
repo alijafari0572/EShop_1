@@ -20,7 +20,8 @@ namespace EShop.IocConfig
             //{
             //    options.UseSqlServer(connectionStrings.EShopDbContextConnection);
             //});
-            //services.AddScoped<IProductServices,ProductServices>();
+            services.AddScoped<IUnitOfWork, EShopDbContext>();
+            services.AddScoped<IProductServices, ProductServices>();
             return services;
 
         }

@@ -4,11 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using EShop.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace EShop.DataLayer.Context
 {
-    public class EShopDbContext:DbContext,IUnitOfWork
+    public class EShopDbContext:IdentityDbContext,IUnitOfWork
     {
         public EShopDbContext(DbContextOptions options)
             : base(options)

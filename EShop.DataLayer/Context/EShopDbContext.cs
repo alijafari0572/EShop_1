@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EShop.DataLayer.Context
 {
-    public class EShopDbContext:IdentityDbContext,IUnitOfWork
+    public class EShopDbContext:IdentityDbContext<User>,IUnitOfWork
     {
         public EShopDbContext(DbContextOptions options)
             : base(options)

@@ -7,9 +7,8 @@ using EShop.Entities;
 
 namespace EShop.Services.Contracts
 {
-    public interface IProductServices
+    public interface IProductServices:IGenericServices<Product>
     {
-        void Add(Product product);
-        List<Product> GetList();
+    
     }
 }

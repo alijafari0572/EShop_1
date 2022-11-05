@@ -10,11 +10,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EShop.Services.EFServices
 {
-    public class ProductServices:IProductServices
+    public class ProductServices:GenericServices<Product>, IProductServices
     {
         private readonly DbSet<Product> _products;
         private readonly IUnitOfWork _uow;
         public ProductServices(IUnitOfWork uow)
+            :base(uow)
         {
             _uow = uow;
             _products = _uow.Set<Product>();

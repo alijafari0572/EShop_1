@@ -5,6 +5,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+	  <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="5.0.17" />
+	  <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\EShop.DataLayer\EShop.DataLayer.csproj" />
     <ProjectReference Include="..\EShop.Services\EShop.Services.csproj" />
     <ProjectReference Include="..\EShop.ViewModels\EShop.ViewModels.csproj" />

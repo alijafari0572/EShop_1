@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace EShop.ViewModels.App
+namespace EShop.ViewModels.Application
 {
     public class ConnectionStringsModel
     {

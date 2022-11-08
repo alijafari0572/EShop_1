@@ -12,7 +12,7 @@ using EShop.DataLayer.Context;
 using EShop.IocConfig;
 using EShop.Services.Contracts;
 using EShop.Services.EFServices;
-using EShop.ViewModels.App;
+using EShop.ViewModels.Application;
 using Microsoft.EntityFrameworkCore;
 
 
@@ -34,7 +34,7 @@ namespace EShop.Web
             {
                 options.UseSqlServer(Configuration.GetConnectionString("ApplicationDbContextConnection"));
             });
-           // services.Configure<ConnectionStringsModel>(Configuration.GetSection(nameof(ConnectionStringsModel)));
+           services.Configure<EmailConfigsModel>(options=> Configuration.GetSection("EmailConfigs"));
            services.AddCustomServices();
            services.AddControllersWithViews();
            //services.AddScoped<IProductServices, ProductServices>();

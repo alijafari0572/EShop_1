@@ -9,5 +9,6 @@ namespace EShop.Entities
 {
     public class User:IdentityUser
     {
+        public DateTime CreateDateTime { get; set; }
     }
 }

@@ -1,15 +1,18 @@
 ﻿using System;
+using EShop.Common.MVC;
 using EShop.DataLayer.Context;
 using EShop.Entities;
+using EShop.Services;
 using EShop.Services.Contracts;
 using EShop.Services.EFServices;
-using EShop.ViewModels.App;
+using EShop.ViewModels.Application;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 
 namespace EShop.IocConfig
@@ -45,8 +48,16 @@ namespace EShop.IocConfig
                 .AddDefaultTokenProviders();
             services.AddRazorPages()
                 .AddRazorRuntimeCompilation();
+            services.AddRazorViewRenderer();
+            services.AddScoped<IEmailSenderService, EmailSenderService>();
             return services;
 
+        }
+        public static IServiceCollection AddRazorViewRenderer(this IServiceCollection services)
+        {
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IViewRendererService, ViewRendererService>();
+            return services;
         }
     }
 }

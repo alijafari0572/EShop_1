@@ -7,10 +7,8 @@ using Microsoft.AspNetCore.Identity;
 
 namespace EShop.Entities
 {
-    public class Role : IdentityRole<int>
+    public class UserLogin:IdentityUserLogin<int>
     {
-        public virtual ICollection<RoleClaim> RoleClaims { get; set; }
-        public virtual ICollection<UserRole> UserRoles { get; set; }
-
+        public virtual User User { get; set; }
     }
 }

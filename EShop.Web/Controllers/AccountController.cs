@@ -63,6 +63,10 @@ namespace EShop.Web.Controllers
 
                errors.AddRange(result.Errors.Select(error => error.Description));
             }
+            else
+            {
+                errors.Add(PublicConstantStrings.ModelStateErrorMassage);
+            }
             return BadRequest(errors);
         }
         [HttpPost]

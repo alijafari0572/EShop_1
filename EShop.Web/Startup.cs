@@ -30,11 +30,14 @@ namespace EShop.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // services.Configure<ConnectionStringsModel>(Configuration.GetSection("ApplicationDbContextConnection"));
+
             services.AddDbContext<EShopDbContext>(options =>
             {
                 options.UseSqlServer(Configuration.GetConnectionString("ApplicationDbContextConnection"));
             });
-           services.Configure<EmailConfigsModel>(options=> Configuration.GetSection("EmailConfigs"));
+            //services.AddScoped<IUnitOfWork, EShopDbContext>();
+            services.Configure<EmailConfigsModel>(options=> Configuration.GetSection("EmailConfigs"));
            services.AddCustomServices();
            services.AddControllersWithViews();
            //services.AddScoped<IProductServices, ProductServices>();

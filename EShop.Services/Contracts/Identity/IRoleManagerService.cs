@@ -1,4 +1,4 @@
-﻿using EShop.Entities;
+﻿using EShop.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Logging;
 using System;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace EShop.Services.Contracts.Identity
 {
-    public interface IApplicationRoleManager : IDisposable
+    public interface IRoleManagerService : IDisposable
     {
         #region BaseClass
 

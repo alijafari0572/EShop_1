@@ -1,5 +1,6 @@
 ﻿using EShop.DataLayer.Context;
-using EShop.Entities;
+using EShop.Entities.Identity;
+using EShop.Services.Contracts.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System;
@@ -10,11 +11,12 @@ using System.Threading.Tasks;
 
 namespace EShop.Services.Identity
 {
-    public class ApplicationRoleStore :
+    public class RoleStoreService :
         RoleStore<Role, EShopDbContext, int, UserRole, RoleClaim>
+        ,IRoleStoreService
 
     {
-        public ApplicationRoleStore(IUnitOfWork uow, IdentityErrorDescriber describer = null) : base((EShopDbContext)uow, describer)
+        public RoleStoreService(IUnitOfWork uow, IdentityErrorDescriber describer = null) : base((EShopDbContext)uow, describer)
         {
         }
     }

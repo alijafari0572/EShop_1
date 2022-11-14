@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 
-namespace EShop.Entities
+namespace EShop.Entities.Identity
 {
     public class Role : IdentityRole<int>
     {

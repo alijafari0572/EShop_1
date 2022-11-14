@@ -5,10 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 
-namespace EShop.Entities
+namespace EShop.Entities.Identity
 {
-    public class UserToken:IdentityUserToken<int>
+    public class UserClaim : IdentityUserClaim<int>
     {
-        public  virtual User User { get; set; }
+        public virtual User User { get; set; }
     }
 }

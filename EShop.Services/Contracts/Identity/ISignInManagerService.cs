@@ -1,4 +1,4 @@
-﻿using EShop.Entities;
+﻿using EShop.Entities.Identity;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace EShop.Services.Contracts.Identity
 {
-    public interface IApplicationSignInManager
+    public interface ISignInManagerService
     {
         Task<ClaimsPrincipal> CreateUserPrincipalAsync(User user);
         bool IsSignedIn(ClaimsPrincipal principal);

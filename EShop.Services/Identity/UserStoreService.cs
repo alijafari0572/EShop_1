@@ -1,5 +1,5 @@
 ﻿using EShop.DataLayer.Context;
-using EShop.Entities;
+using EShop.Entities.Identity;
 using EShop.Services.Contracts.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -11,11 +11,11 @@ using System.Threading.Tasks;
 
 namespace EShop.Services.Identity
 {
-    internal class ApplicationUserStore
+    public class UserStoreService
         :UserStore<User,Role,EShopDbContext,int,UserClaim,UserRole,UserLogin,UserToken,RoleClaim>
-        , IApplicationUserStore
+        , IUserStoreServoce
     {
-        public ApplicationUserStore(
+        public UserStoreService(
             IUnitOfWork uow, IdentityErrorDescriber describer = null)
         :base((EShopDbContext)uow,describer)
         { 

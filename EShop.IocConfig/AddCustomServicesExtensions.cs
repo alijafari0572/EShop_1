@@ -1,7 +1,6 @@
 ﻿using System;
 using EShop.Common.MVC;
 using EShop.DataLayer.Context;
-using EShop.Entities;
 using EShop.Services;
 using EShop.Services.Contracts;
 using EShop.Services.EFServices;
@@ -13,7 +12,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-
+using EShop.Entities.Identity;
+using EShop.Services.Contracts.Identity;
+using EShop.Services.Identity;
 
 namespace EShop.IocConfig
 {
@@ -28,6 +29,23 @@ namespace EShop.IocConfig
             //    options.UseSqlServer(connectionStrings.EShopDbContextConnection);
             //});
             services.AddScoped<IUnitOfWork, EShopDbContext>();
+            #region Register Identity Services
+            services.AddScoped<IRoleManagerService, RoleManagerService>();
+            services.AddScoped<RoleManager<Role>, RoleManagerService>();
+
+            services.AddScoped<IRoleStoreService, RoleStoreService>();
+            services.AddScoped<RoleStore<Role, EShopDbContext, int, UserRole, RoleClaim>, RoleStoreService>();
+
+            services.AddScoped<IUserManagerService, UserManagerService>();
+            services.AddScoped<UserManager<User>, UserManagerService>();
+
+            services.AddScoped<IUserStoreServoce, UserStoreService>();
+            services.AddScoped<UserStore<User, Role, EShopDbContext, int, UserClaim, UserRole, UserLogin, UserToken, RoleClaim>,
+                UserStoreService>();
+            services.AddScoped<ISignInManagerService, SignInManagerService>();
+            services.AddScoped<SignInManager<User>, SignInManagerService>();
+
+            #endregion
             services.AddScoped<IProductServices, ProductServices>();
             services.AddIdentity<User, Role>(Option =>
                 {
@@ -41,10 +59,12 @@ namespace EShop.IocConfig
                     Option.User.RequireUniqueEmail = true;
                     Option.SignIn.RequireConfirmedPhoneNumber = false;
                 })
-                .AddUserManager<UserManager<User>>()
-                .AddRoles<Role>()
-                .AddRoleManager<RoleManager<Role>>()
-                .AddEntityFrameworkStores<EShopDbContext>()
+                .AddUserStore<UserStoreService>()
+                .AddUserManager<UserManagerService>()
+                .AddRoleStore<RoleStoreService>()
+                .AddRoleManager<RoleManagerService>()
+                .AddSignInManager<SignInManagerService>()
+                //.AddEntityFrameworkStores<EShopDbContext>()
                 .AddDefaultTokenProviders();
             services.AddRazorPages()
                 .AddRazorRuntimeCompilation();

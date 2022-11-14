@@ -1,4 +1,4 @@
-﻿using EShop.Entities;
+﻿using EShop.Entities.Identity;
 using EShop.Services.Contracts.Identity;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
@@ -13,14 +13,15 @@ using System.Threading.Tasks;
 
 namespace EShop.Services.Identity
 {
-    public class ApplicationSignInManager : SignInManager<User>
+    public class SignInManagerService : SignInManager<User>
+        ,ISignInManagerService
     {
-        public ApplicationSignInManager(
-            IApplicationUserManager userManager,
+        public SignInManagerService(
+            IUserManagerService userManager,
             IHttpContextAccessor contextAccessor,
             IUserClaimsPrincipalFactory<User> claimsFactory,
             IOptions<IdentityOptions> optionsAccessor,
-            ILogger<ApplicationSignInManager> logger,
+            ILogger<SignInManagerService> logger,
             IAuthenticationSchemeProvider schemes,
             IUserConfirmation<User> confirmation)
             : base(

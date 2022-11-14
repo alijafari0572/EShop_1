@@ -7,9 +7,9 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 
-namespace EShop.Entities
+namespace EShop.Entities.Identity
 {
-    public class User:IdentityUser<int>
+    public class User : IdentityUser<int>
     {
         public DateTime CreateDateTime { get; set; }
         [MaxLength(50)]

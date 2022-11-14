@@ -1,4 +1,4 @@
-﻿using EShop.Entities;
+﻿using EShop.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace EShop.Services.Contracts.Identity
 {
-    public interface IApplicationUserStore : IDisposable
+    public interface IUserStoreServoce : IDisposable
     {
         Task<string> GetUserIdAsync(User user, CancellationToken cancellationToken);
         Task<string> GetUserNameAsync(User user, CancellationToken cancellationToken);

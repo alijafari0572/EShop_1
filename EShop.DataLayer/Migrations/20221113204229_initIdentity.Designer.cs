@@ -4,14 +4,16 @@ using EShop.DataLayer.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace EShop.DataLayer.Migrations
 {
     [DbContext(typeof(EShopDbContext))]
-    partial class EShopDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221113204229_initIdentity")]
+    partial class initIdentity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,7 +47,7 @@ namespace EShop.DataLayer.Migrations
                         .HasDatabaseName("RoleNameIndex")
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
-                    b.ToTable("Roles");
+                    b.ToTable("AspNetRoles");
                 });
 
             modelBuilder.Entity("EShop.Entities.Identity.RoleClaim", b =>
@@ -64,11 +66,16 @@ namespace EShop.DataLayer.Migrations
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("RoleId1")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("RoleClaims");
+                    b.HasIndex("RoleId1");
+
+                    b.ToTable("AspNetRoleClaims");
                 });
 
             modelBuilder.Entity("EShop.Entities.Identity.User", b =>
@@ -146,7 +153,7 @@ namespace EShop.DataLayer.Migrations
                         .HasDatabaseName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.ToTable("Users");
+                    b.ToTable("AspNetUsers");
                 });
 
             modelBuilder.Entity("EShop.Entities.Identity.UserClaim", b =>
@@ -165,11 +172,16 @@ namespace EShop.DataLayer.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("UserId1")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserClaims");
+                    b.HasIndex("UserId1");
+
+                    b.ToTable("AspNetUserClaims");
                 });
 
             modelBuilder.Entity("EShop.Entities.Identity.UserLogin", b =>
@@ -186,11 +198,16 @@ namespace EShop.DataLayer.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("UserId1")
+                        .HasColumnType("int");
+
                     b.HasKey("LoginProvider", "ProviderKey");
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserLogins");
+                    b.HasIndex("UserId1");
+
+                    b.ToTable("AspNetUserLogins");
                 });
 
             modelBuilder.Entity("EShop.Entities.Identity.UserRole", b =>
@@ -201,11 +218,21 @@ namespace EShop.DataLayer.Migrations
                     b.Property<int>("RoleId")
                         .HasColumnType("int");
 
+                    b.Property<int?>("RoleId1")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("UserId1")
+                        .HasColumnType("int");
+
                     b.HasKey("UserId", "RoleId");
 
                     b.HasIndex("RoleId");
 
-                    b.ToTable("UserRoles");
+                    b.HasIndex("RoleId1");
+
+                    b.HasIndex("UserId1");
+
+                    b.ToTable("AspNetUserRoles");
                 });
 
             modelBuilder.Entity("EShop.Entities.Identity.UserToken", b =>
@@ -219,12 +246,17 @@ namespace EShop.DataLayer.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int?>("UserId1")
+                        .HasColumnType("int");
+
                     b.Property<string>("Value")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserId", "LoginProvider", "Name");
 
-                    b.ToTable("UserTokens");
+                    b.HasIndex("UserId1");
+
+                    b.ToTable("AspNetUserTokens");
                 });
 
             modelBuilder.Entity("EShop.Entities.Product", b =>
@@ -253,50 +285,70 @@ namespace EShop.DataLayer.Migrations
 
             modelBuilder.Entity("EShop.Entities.Identity.RoleClaim", b =>
                 {
-                    b.HasOne("EShop.Entities.Identity.Role", "Role")
-                        .WithMany("RoleClaims")
+                    b.HasOne("EShop.Entities.Identity.Role", null)
+                        .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("EShop.Entities.Identity.Role", "Role")
+                        .WithMany("RoleClaims")
+                        .HasForeignKey("RoleId1");
 
                     b.Navigation("Role");
                 });
 
             modelBuilder.Entity("EShop.Entities.Identity.UserClaim", b =>
                 {
-                    b.HasOne("EShop.Entities.Identity.User", "User")
-                        .WithMany("UserClaims")
+                    b.HasOne("EShop.Entities.Identity.User", null)
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("EShop.Entities.Identity.User", "User")
+                        .WithMany("UserClaims")
+                        .HasForeignKey("UserId1");
 
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("EShop.Entities.Identity.UserLogin", b =>
                 {
-                    b.HasOne("EShop.Entities.Identity.User", "User")
-                        .WithMany("UserLogins")
+                    b.HasOne("EShop.Entities.Identity.User", null)
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("EShop.Entities.Identity.User", "User")
+                        .WithMany("UserLogins")
+                        .HasForeignKey("UserId1");
 
                     b.Navigation("User");
                 });
 
             modelBuilder.Entity("EShop.Entities.Identity.UserRole", b =>
                 {
+                    b.HasOne("EShop.Entities.Identity.Role", null)
+                        .WithMany()
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("EShop.Entities.Identity.Role", "Role")
                         .WithMany("UserRoles")
-                        .HasForeignKey("RoleId")
+                        .HasForeignKey("RoleId1");
+
+                    b.HasOne("EShop.Entities.Identity.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("EShop.Entities.Identity.User", "User")
                         .WithMany("UserRoles")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UserId1");
 
                     b.Navigation("Role");
 
@@ -305,11 +357,15 @@ namespace EShop.DataLayer.Migrations
 
             modelBuilder.Entity("EShop.Entities.Identity.UserToken", b =>
                 {
-                    b.HasOne("EShop.Entities.Identity.User", "User")
-                        .WithMany("UserTokens")
+                    b.HasOne("EShop.Entities.Identity.User", null)
+                        .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.HasOne("EShop.Entities.Identity.User", "User")
+                        .WithMany("UserTokens")
+                        .HasForeignKey("UserId1");
 
                     b.Navigation("User");
                 });

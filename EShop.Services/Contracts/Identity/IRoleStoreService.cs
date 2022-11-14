@@ -1,4 +1,4 @@
-﻿using EShop.Entities;
+﻿using EShop.Entities.Identity;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace EShop.Services.Contracts.Identity
 {
-    public interface IApplicationRoleStore : IDisposable
+    public interface IRoleStoreService : IDisposable
     {
         Task<IdentityResult> CreateAsync(Role role, CancellationToken cancellationToken);
         Task<IdentityResult> UpdateAsync(Role role, CancellationToken cancellationToken);

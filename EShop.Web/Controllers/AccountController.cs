@@ -1,5 +1,4 @@
 ﻿using EShop.Common.Constants;
-using EShop.Entities;
 using EShop.ViewModels.Account;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -9,12 +8,14 @@ using System.Linq;
 using System.Threading.Tasks;
 using EShop.Common.MVC;
 using EShop.Services.Contracts;
+using EShop.Entities.Identity;
+using EShop.Services.Contracts.Identity;
 
 namespace EShop.Web.Controllers
 {
     public class AccountController : Controller
     {
-        private readonly UserManager<User> _userManager;
+        private readonly IUserManagerService _userManager;
         private readonly ILogger<AccountController> _logger;
         private readonly IEmailSenderService _emailSenderService;
         private readonly IViewRendererService _viewRendererService;

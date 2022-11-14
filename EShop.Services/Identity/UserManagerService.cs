@@ -1,5 +1,5 @@
 ﻿using EShop.DataLayer.Context;
-using EShop.Entities;
+using EShop.Entities.Identity;
 using EShop.Services.Contracts.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -13,12 +13,12 @@ using System.Threading.Tasks;
 
 namespace EShop.Services.Identity
 {
-    public class ApplicationUserManager
+    public class UserManagerService
         : UserManager<User>
-        ,IApplicationUserManager
+        ,IUserManagerService
     {
-        public ApplicationUserManager(
-        IApplicationUserStore store,
+        public UserManagerService(
+        IUserStoreServoce store,
         IOptions<IdentityOptions> optionsAccessor,
         IPasswordHasher<User> passwordHasher,
         IEnumerable<IUserValidator<User>> userValidators,
@@ -26,7 +26,7 @@ namespace EShop.Services.Identity
         ILookupNormalizer keyNormalizer,
         IdentityErrorDescriber errors,
         IServiceProvider services,
-        ILogger<ApplicationUserManager> logger)
+        ILogger<UserManagerService> logger)
             : base(
                   (UserStore<User, Role, EShopDbContext, int, UserClaim, UserRole, UserLogin, UserToken, RoleClaim>)store,
                    optionsAccessor, passwordHasher, userValidators, passwordValidators, keyNormalizer, errors, services, logger

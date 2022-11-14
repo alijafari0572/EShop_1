@@ -1,5 +1,5 @@
 ﻿using EShop.DataLayer.Context;
-using EShop.Entities;
+using EShop.Entities.Identity;
 using EShop.Services.Contracts.Identity;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
@@ -12,15 +12,15 @@ using System.Threading.Tasks;
 
 namespace EShop.Services.Identity
 {
-    public class ApplicationRoleManager : RoleManager<Role>
-        , IApplicationRoleManager
+    public class RoleManagerService : RoleManager<Role>
+        , IRoleManagerService
     {
-        public ApplicationRoleManager(
-            IApplicationRoleStore store,
+        public RoleManagerService(
+            IRoleStoreService store,
             IEnumerable<IRoleValidator<Role>> roleValidators,
             ILookupNormalizer keyNormalizer,
             IdentityErrorDescriber errors,
-            ILogger<ApplicationRoleManager> logger)
+            ILogger<RoleManagerService> logger)
             : base(
                   (RoleStore<Role, EShopDbContext, int, UserRole, RoleClaim>) store,
                   roleValidators, keyNormalizer, errors, logger

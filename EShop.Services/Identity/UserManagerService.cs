@@ -15,7 +15,7 @@ namespace EShop.Services.Identity
 {
     public class UserManagerService
         : UserManager<User>
-        ,IUserManagerService
+        , IUserManagerService
     {
         public UserManagerService(
         IUserStoreServoce store,

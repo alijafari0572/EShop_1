@@ -10,6 +10,8 @@ using EShop.Common.MVC;
 using EShop.Services.Contracts;
 using EShop.Entities.Identity;
 using EShop.Services.Contracts.Identity;
+using EShop.Services.Identity;
+using System;
 
 namespace EShop.Web.Controllers
 {
@@ -19,14 +21,19 @@ namespace EShop.Web.Controllers
         private readonly ILogger<AccountController> _logger;
         private readonly IEmailSenderService _emailSenderService;
         private readonly IViewRendererService _viewRendererService;
+        private readonly ISignInManagerService _signInManagerService;
 
-        public AccountController(UserManager<User> userManager,
-            ILogger<AccountController> logger, IEmailSenderService emailSenderService, IViewRendererService viewRendererService)
+        public AccountController(IUserManagerService userManager,
+            ILogger<AccountController> logger,
+            IEmailSenderService emailSenderService,
+            IViewRendererService viewRendererService,
+            ISignInManagerService signInManagerService)
         {
             _userManager = userManager;
             _logger = logger;
             _emailSenderService = emailSenderService;
             _viewRendererService = viewRendererService;
+            _signInManagerService = signInManagerService;
         }
 
         [HttpPost]
@@ -40,6 +47,7 @@ namespace EShop.Web.Controllers
                     UserName = model.UserName,
                     Email = model.Email
                 };
+                user.CreateDateTime = DateTime.Now;
                 var result=await _userManager.CreateAsync(user, model.Password);
                if (result.Succeeded)
                 {
@@ -79,6 +87,38 @@ namespace EShop.Web.Controllers
         public IActionResult ConfirmEmail()
         {
             return View();
+        }
+        [HttpPost,ValidateAntiForgeryToken]
+        public async Task<IActionResult> Login(string returnUrl, Login_ViewModel model)
+        {
+            var errors = new List<string>();
+
+            if (ModelState.IsValid)
+            {
+                var user =await _userManager.FindByNameAsync(model.UserName);
+                if (user is null)
+                {
+                    errors.Add("نام کاربری یا رمز عبور اشتباه است");
+                }
+                else if (!await _userManager.IsEmailConfirmedAsync(user))
+                {
+                    errors.Add("لطفا حساب کاربری خود را فعال کنید");
+                }
+                else
+                {
+                    var result = await _signInManagerService.CheckPasswordSignInAsync(user, model.Password, model.RememberMe);
+                    if (result.Succeeded)
+                    {
+                        return Ok("Success");
+                    }
+                    errors.Add("نام کاربری یا رمز عبور اشتباه است");
+                }
+
+            }
+            else
+                errors.Add(PublicConstantStrings.ModelStateErrorMassage);
+
+            return BadRequest();
         }
     }
 }

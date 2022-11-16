@@ -56,7 +56,13 @@ namespace EShop.IocConfig
                     Option.Password.RequireNonAlphanumeric = false;
                     Option.Password.RequiredUniqueChars = 0;
                     Option.Password.RequiredLength = 4;
-                    Option.User.RequireUniqueEmail = true;
+
+                    Option.Lockout.AllowedForNewUsers = false;
+                    Option.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(10);
+
+                    Option.User.RequireUniqueEmail = true; 
+
+                    Option.SignIn.RequireConfirmedEmail= true;
                     Option.SignIn.RequireConfirmedPhoneNumber = false;
                 })
                 .AddUserStore<UserStoreService>()

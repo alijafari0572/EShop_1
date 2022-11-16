@@ -17,6 +17,7 @@ namespace EShop.ViewModels.Account
         [Required(ErrorMessage = AttributesErrorMessages.RequiredMessage)]
         [MinLength(3,ErrorMessage =AttributesErrorMessages.MinLengthMessage)]
         [MaxLength(30,ErrorMessage = AttributesErrorMessages.MaxLengthMessage)]
+        [RegularExpression(@"^\w+$", ErrorMessage = "نام کاربری باید از حروف انگلیسی تشکیل شده باشد")]
         [Remote("CheckUserName", "Account", null,
             ErrorMessage =AttributesErrorMessages.RemoteMessage, HttpMethod = "POST")]
        // [RegularExpression(@"^\w+$", ErrorMessage = "نام کاربری باید از حروف انگلیسی تشکیل شده باشد")]

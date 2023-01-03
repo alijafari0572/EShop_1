@@ -1,0 +1,32 @@
+﻿@model EShop.ViewModels.Account.Login_ViewModel
+<form asp-action="Login" asp-controller="Account" asp-route-returnUrl="@ViewData["ReturnUrl"]" id="register-form">
+     @* data-ajax="true"
+      data-ajax-method="POST"
+      data-ajax-success="OnSuccess"
+      data-ajax-begin="onBeginForLogin"
+      data-ajax-complete="onCompleteForLogin"
+      data-ajax-success="onSuccessForLogin"
+      data-ajax-failure="onFailureForLogin"
+      data-ajax-loading="#login-loading-element">*@
+    <div class="container">
+    <div asp-validation-summary="All" class="text-danger mt-4" id="login-errors-place"></div>
+    <div class="my-3">
+        <label asp-for="UserName" class="form-label"></label>
+        <input asp-for="UserName" class="form-control">
+        <span asp-validation-for="UserName" class="text-danger"></span>
+    </div>
+    <div class="my-3">
+        <label asp-for="Password" class="form-label"></label>
+        <input asp-for="Password" class="form-control">
+        <span asp-validation-for="Password" class="text-danger"></span>
+    </div>
+    <div class="my-3">
+        <input asp-for="RememberMe">
+        <label asp-for="RememberMe" class="form-label"></label>
+    </div>
+    <div class="my-3">
+        <button type="submit" class="btn btn-primary">ورود</button>
+        @*<img src="/images/application/loading.gif" style="display: none" alt="Loading ..." width="40" id="register-loading-element" />*@
+    </div>
+    </div>
+</form>
